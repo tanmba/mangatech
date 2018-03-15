@@ -10,38 +10,39 @@ use Doctrine\ORM\Mapping as ORM;
 class Mangas
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $author;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="float")
      */
     private $cover;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $synopsis;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $genre;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="boolean")
      */
     private $availability;
 
@@ -56,7 +57,7 @@ class Mangas
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -72,7 +73,7 @@ class Mangas
     /**
      * @param mixed $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -88,7 +89,7 @@ class Mangas
     /**
      * @param mixed $author
      */
-    public function setAuthor($author)
+    public function setAuthor($author): void
     {
         $this->author = $author;
     }
@@ -104,7 +105,7 @@ class Mangas
     /**
      * @param mixed $cover
      */
-    public function setCover($cover)
+    public function setCover($cover): void
     {
         $this->cover = $cover;
     }
@@ -120,7 +121,7 @@ class Mangas
     /**
      * @param mixed $synopsis
      */
-    public function setSynopsis($synopsis)
+    public function setSynopsis($synopsis): void
     {
         $this->synopsis = $synopsis;
     }
@@ -136,7 +137,7 @@ class Mangas
     /**
      * @param mixed $genre
      */
-    public function setGenre($genre)
+    public function setGenre($genre): void
     {
         $this->genre = $genre;
     }
@@ -152,9 +153,12 @@ class Mangas
     /**
      * @param mixed $availability
      */
-    public function setAvailability($availability)
+    public function setAvailability($availability): void
     {
         $this->availability = $availability;
     }
+
+
+
 
 }

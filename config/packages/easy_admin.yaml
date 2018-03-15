@@ -1,7 +1,19 @@
+# config/packages/easy_admin.yml
+
 easy_admin:
+    site_name: 'Mangatech'
+    design:
+            brand_color: '#1ABC9C'
+            color_scheme: 'light'
     entities:
-        # List the entity class name you want to manage
         Mangas:
             class: App\Entity\Mangas
+            list:
+            # 'name' doesn't exist as a Doctrine entity property
+            fields: ['id', 'title', 'author', 'cover', 'email']
+
         User:
             class: App\Entity\User
+            list:
+            # 'name' doesn't exist as a Doctrine entity property
+            fields: ['id', 'name', 'lastname', 'username', 'email']

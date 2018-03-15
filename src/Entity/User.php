@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,30 +19,29 @@ class User
 
     /**
      * @ORM\ManyToMany(targetEntity="Mangas")
-     * @ORM\JoinTable(name="mangas_lend")
+     * @ORM\JoinTable(name="user_mangas")
      */
+    private $mangas;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $username;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string")
      */
     private $email;
-
-    private $manga;
 
     /**
      * @return mixed
@@ -56,9 +54,25 @@ class User
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMangas()
+    {
+        return $this->mangas;
+    }
+
+    /**
+     * @param mixed $mangas
+     */
+    public function setMangas($mangas): void
+    {
+        $this->mangas = $mangas;
     }
 
     /**
@@ -72,7 +86,7 @@ class User
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -88,7 +102,7 @@ class User
     /**
      * @param mixed $lastname
      */
-    public function setLastname($lastname)
+    public function setLastname($lastname): void
     {
         $this->lastname = $lastname;
     }
@@ -104,7 +118,7 @@ class User
     /**
      * @param mixed $username
      */
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
@@ -120,25 +134,12 @@ class User
     /**
      * @param mixed $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getManga()
-    {
-        return $this->manga;
-    }
 
-    /**
-     * @param mixed $manga
-     */
-    public function setManga($manga)
-    {
-        $this->manga = $manga;
-    }
+
 
 }
