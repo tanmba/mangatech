@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for mangas in collection %}
+        <h2>{{ manga.title }}</h2>
+        <br>
+        <img src="{{ asset('../../src/entity/manga.cover') }}" alt="couverture">
+    {% endfor %}
+{% endblock %}

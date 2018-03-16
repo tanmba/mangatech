@@ -3,10 +3,125 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {#<link href="{{ asset('css/style.css') }}" rel="stylesheet" />#}
+        {% endblock %}
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Roboto');
+            /*HEADER*/
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            nav {
+                color: #cc0000;
+                font-family: 'Roboto', sans-serif;
+                display: block;
+                position: relative;
+                height: 100px;
+            }
+
+            nav:before {
+                content: "";
+                display: block;
+                position: absolute;
+                z-index: -1;
+                width: 100%;
+                height: 80%;
+                box-shadow: 0 -4px 14px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 50px;
+            }
+
+            nav ul li {
+                width: 50%;
+                list-style-type: none;
+            }
+
+            .logo img {
+                width: 20%;
+                position: relative;
+            }
+
+            .profil {
+                text-align: right;
+            }
+
+            .search {
+                text-align: center;
+            }
+
+            .search a {
+                display: block;
+                width: 30%;
+                padding: 10px;
+                text-decoration: none;
+                border: 1px solid #cc0000;
+                color: #cc0000;
+                margin: 0 auto;
+                background: transparent;
+                transition: 500ms;
+            }
+
+            .search a:hover {
+                background: #cc0000;
+                color: #FFFFFF;
+            }
+
+            footer {
+                color: #cc0000;
+            }
+
+            footer ul {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0 50px;
+            }
+
+            footer ul li {
+                width: 50%;
+                list-style-type: none;
+            }
+
+            footer .copyright {
+                text-align: right;
+            }
+
+            footer .copyright a {
+                color: #cc0000;
+                text-decoration: none;
+            }
+
+            footer ul .logo-footer img {
+                width: 15%;
+            }
+
+        </style>
     </head>
     <body>
+    <nav>
+        <ul>
+            <li class="logo"><a href="#"><img src="https://i.pinimg.com/originals/88/d5/84/88d5840203e10a43f538c74a32e761b4.jpg"></a></li>
+            <li class="search"><a href="#">Rechercher</a></li>
+            <li class="profil">Profil</li>
+        </ul>
+    </nav>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+    <footer>
+        <ul>
+            <li class="logo-footer"><a href="#"><img src="https://i.pinimg.com/originals/88/d5/84/88d5840203e10a43f538c74a32e761b4.jpg"></a></li>
+            <li class="copyright"><a href="#">Copyright © 2018</a></li>
+        </ul>
+    </footer>
+        {#{% block javascripts %}{% endblock %}#}
     </body>
 </html>
