@@ -17,3 +17,7 @@ easy_admin:
             list:
             # 'name' doesn't exist as a Doctrine entity property
             fields: ['id', 'name', 'lastname', 'username', 'email']
+
+
+
+
