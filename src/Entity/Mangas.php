@@ -27,7 +27,7 @@ class Mangas
     private $author;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
     private $cover;
 
