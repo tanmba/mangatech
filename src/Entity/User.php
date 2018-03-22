@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @UniqueEntity(fields="email", message="Email already taken")
  * @UniqueEntity(fields="username", message="Username already taken")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -212,38 +212,4 @@ class User implements UserInterface, \Serializable
     {
         return array('ROLE_USER');
     }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->mangas,
-            $this->name,
-            $this->lastname,
-            $this->email,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            $this->mangas,
-            $this->name,
-            $this->lastname,
-            $this->email,
-            // see section on salt below
-            // $this->salt
-            ) = unserialize($serialized);
-    }
-
-
 }

@@ -10,18 +10,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/log", name="log")
+     * @Route("/login", name="login")
      */
-    public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
+    public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
         // last username entered by the user
-        $username = $authenticationUtils->getLastUsername();
-
-        return $this->render('log.html.twig', array(
-            'last_username' => $username,
+        $lastUsername = $authenticationUtils->getLastUsername();
+        return $this->render('security/login.html.twig', array(
+            'last_username' => $lastUsername,
             'error'         => $error,
         ));
     }
