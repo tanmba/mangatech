@@ -26,4 +26,3 @@ class SecurityController extends Controller
         ));
     }
 }
-//cc
