@@ -31,6 +31,11 @@ class User
     /**
      * @ORM\Column(type="string")
      */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $lastname;
 
     /**
@@ -94,6 +99,22 @@ class User
     /**
      * @return mixed
      */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $lastname
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getLastname()
     {
         return $this->lastname;
@@ -139,7 +160,10 @@ class User
         $this->email = $email;
     }
 
+    public function getPlainPassword()
+    {
 
+    }
 
 
 }
