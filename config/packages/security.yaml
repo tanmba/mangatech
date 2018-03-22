@@ -1,8 +1,11 @@
 security:
     role_hierarchy:
             ROLE_ADMIN:       ROLE_USER
-            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     providers:
+        our_db_provider:
+            entity:
+                class: App\Entity\User
         in_memory:
             memory:
                 users:
@@ -19,10 +22,11 @@ security:
             pattern: ^/admin
             anonymous: true
             http_basic: true
+            provider:  in_memory
         main:
             pattern:   ^/
             anonymous: true
-            provider:  in_memory
+            provider:  our_db_provider
             form_login:
                 login_path: login
                 check_path: login_check
