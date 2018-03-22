@@ -6,10 +6,12 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 
 class ConnectionType extends AbstractType
 {
@@ -19,10 +21,13 @@ class ConnectionType extends AbstractType
             ->add('username', TextType::class)
             ->add('name',TextType::class)
             ->add('lastname',TextType::class )
-            ->add('password',PasswordType::class)
             ->add('email', EmailType::class)
-            ->add('save', SubmitType::class, array('label' => 'Submit'))
-            ->getForm();
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ))
+            ;
 
     }
 

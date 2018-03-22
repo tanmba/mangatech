@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ConnectionType;
-use Doctrine\DBAL\Driver\PDOSqlsrv\Connection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,13 +40,15 @@ class UserController extends Controller
         $form = $this->createForm(ConnectionType::class, $connection);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $password = $passwordEncoder->encodePassword($connection, $connection->getPlainPassword());
+            $connection->setPassword($password);
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($connection);
             $entityManager->flush();
 
+            return $this->redirectToRoute('form');
 
         }
         return $this->render('connect.html.twig',
