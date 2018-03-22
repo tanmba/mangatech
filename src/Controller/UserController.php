@@ -48,7 +48,7 @@ class UserController extends Controller
             $entityManager->persist($connection);
             $entityManager->flush();
 
-            return $this->redirectToRoute('form');
+            return $this->redirectToRoute('login');
 
         }
         return $this->render('connect.html.twig',
