@@ -5,8 +5,7 @@ security:
     providers:
         our_db_provider:
             entity:
-            class: App\Entity\User
-            property: username
+                class: App\Entity\User
         in_memory:
             memory:
                 users:
