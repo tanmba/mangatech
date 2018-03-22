@@ -12,7 +12,7 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-<form action="{{ path('user') }}" method="post">
+<form action="{{ path('login') }}" method="post">
     <p>
         <label for="username">Username:</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" />
@@ -22,13 +22,7 @@
         <input type="password" id="password" name="_password" />
     </p>
 
-
-    {#<input type="hidden" name="_target_path" value="" />#}
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}">
-
-
+    <input type="hidden" name="_target_path" value="{{ path('blog') }}" />
 
     <button type="submit">login</button>
 </form>
