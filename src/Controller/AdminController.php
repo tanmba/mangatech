@@ -16,13 +16,13 @@ class AdminController extends Controller
             'controller_name' => 'AdminController',
         ]);
     }
-    /**
-     * @Route("/", name="profile")
-     */
-    public function profile()
-    {
-        return $this->render('blog/index.html.twig', [
-            'controller_name' => 'AdminController',
-        ]);
-    }
+//    /**
+//     * @Route("/", name="profile")
+//     */
+//    public function profile()
+//    {
+//        return $this->render('blog/index.html.twig', [
+//            'controller_name' => 'AdminController',
+//        ]);
+//    }
 }

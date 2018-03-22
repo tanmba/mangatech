@@ -8,11 +8,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BlogController extends Controller
 {
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/profile/blog", name="blog")
      */
     public function index()
     {
-        return $this->render('blog/index.html.twig', [
+        return $this->render('test.html.twig', [
+            'controller_name' => 'BlogController',
+        ]);
+    }
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login()
+    {
+        return $this->render('login.html.twig', [
             'controller_name' => 'BlogController',
         ]);
     }

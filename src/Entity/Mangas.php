@@ -46,6 +46,11 @@ class Mangas
      */
     private $availability;
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * @return mixed
      */
