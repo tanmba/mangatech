@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="manga-list">
+        <h2>Liste de mangas</h2>
+        <a class="mangas" href="/manga">
+            {% for manga in mangas %}
+                <div class="manga">
+                    <h4>{{ manga.title }}</h4>
+                    <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
+                </div>
+            {% endfor %}
+        </a>
+    </div>
+{% endblock %}

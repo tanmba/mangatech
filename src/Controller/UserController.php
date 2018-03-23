@@ -26,7 +26,7 @@ class UserController extends Controller
      */
     public function home()
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('home.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }
