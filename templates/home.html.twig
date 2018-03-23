@@ -4,19 +4,20 @@
     <div class="home-content">
         <div class="info-profil">
             <h2>Informations</h2>
-            <ul>
-                <li>Nom :</li>
-                <li>Prénom :</li>
-                <li>Adresse mail :</li>
-                <li>Prénom :</li>
-                <li>Prénom :</li>
-                <li>Prénom :</li>
-            </ul>
         </div>
         <div class="calendar-profil">
-            <h2>Calendrier des prêts</h2>
-            <div class="calendar">
-                <table
+            <h2>Données Mangas</h2>
+            <div class="form_mangas">
+                {{ form_start(form) }}
+                {{ form_row(form.title) }}
+                {{ form_row(form.author) }}
+                {{ form_row(form.cover) }}
+                {{ form_row(form.synopsis) }}
+                {{ form_row(form.genre) }}
+                {{ form_row(form.availability) }}
+
+                <button type="submit">Register!</button>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
