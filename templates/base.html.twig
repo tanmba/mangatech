@@ -3,18 +3,217 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        {% endblock %}
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Roboto');
+            /*HEADER*/
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Roboto', sans-serif;
+                margin-top: -17px;
+            }
+
+            nav {
+                color: #cc0000;
+                font-family: 'Roboto', sans-serif;
+                display: block;
+                position: relative;
+                height: 100px;
+            }
+
+            nav:before {
+                content: "";
+                display: block;
+                position: absolute;
+                z-index: -1;
+                width: 100%;
+                height: 80%;
+                box-shadow: 0 -4px 14px 0 rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 50px;
+            }
+
+            nav ul li {
+                width: 50%;
+                list-style-type: none;
+            }
+
+            .logo img {
+                width: 20%;
+                position: relative;
+            }
+
+            .profil {
+                text-align: right;
+            }
+
+            .profil a {
+                text-decoration: none;
+                color: #cc0000;
+            }
+
+            .search {
+                text-align: center;
+            }
+
+            .search a {
+                display: block;
+                width: 30%;
+                padding: 10px;
+                text-decoration: none;
+                border: 1px solid #cc0000;
+                color: #cc0000;
+                margin: 0 auto;
+                background: transparent;
+                transition: 500ms;
+            }
+
+            .search a:hover {
+                background: #cc0000;
+                color: #FFFFFF;
+            }
+
+            footer {
+                position: fixed;
+                width: 100%;
+                color: #cc0000;
+                bottom: 30px;
+            }
+
+            footer .copyright {
+                width: 98%;
+                text-align: right;
+            }
+
+            footer ul .logo-footer img {
+                width: 15%;
+            }
+
+            /*Profile*/
+            .home-content {
+                display: flex;
+                position: relative;
+                top: -20px;
+            }
+
+            .info-profil {
+                width: 20%;
+                position: relative;
+            }
+
+            .info-profil:after {
+                content: "";
+                display: block;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-right: 1px solid #cc0000;
+            }
+
+            .info-profil h2 {
+                position: relative;
+                text-align: center;
+            }
+
+            .info-profil ul li {
+                list-style-type: none;
+                margin-bottom: 10px;
+            }
+
+            .calendar-profil {
+                width: 70%;
+                position: relative;
+            }
+
+            .calendar-profil h2 {
+                text-align: center;
+            }
+
+            .calendar h3 {
+                text-align: center;
+            }
+
+            .calendar table {
+                width: 90%;
+                margin: 0 auto;
+                border: 1px solid;
+            }
+
+            .calendar table tr {
+                text-align: center;
+            }
+
+            .calendar table td {
+                width: 10%;
+                height: 50px;
+                border: 1px solid;
+            }
+
+            .add-manga {
+                display: block;
+                width: 70%;
+                text-align: center;
+                padding: 10px;
+                position: relative;
+                top: 20px;
+                border: 1px solid #cc0000;
+                text-decoration: none;
+                color: #cc0000;
+                transition: 500ms;
+            }
+
+            .add-manga:hover {
+                background: #cc0000;
+                color: #FFFFFF;
+            }
+
+            /*Manga list*/
+            .manga-list h2 {
+                text-align: center;
+            }
+
+            .mangas {
+                display: flex;
+            }
+
+            .manga {
+                width: 20%;
+                text-align: center;
+                text-decoration: none;
+            }
+
+            .manga img {
+                width: 50%;
+            }
+
+        </style>
     </head>
     <header>
-        <h1>CACA</h1>
     </header>
     <body>
-    {% block content %}{% endblock %}
+    <nav>
+        <ul>
+            <li class="logo"><a href="#"><img src="https://i.pinimg.com/originals/88/d5/84/88d5840203e10a43f538c74a32e761b4.jpg"></a></li>
+            <li class="search"><a href="/mangalist">Rechercher</a></li>
+            <li class="profil"><a href="/profile">Profil</a></li>
+        </ul>
+    </nav>
 
-    {% block tata %}{% endblock %}
+        {% block body %}{% endblock %}
 
+    <footer>
+        <p class="copyright">Copyright Mangatech © 2018</p>
+    </footer>
+        {#{% block javascripts %}{% endblock %}#}
     </body>
 <footer>
-    <h2>Prout</h2>
 </footer>
 </html>
