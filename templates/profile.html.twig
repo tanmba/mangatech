@@ -5,12 +5,10 @@
         <div class="info-profil">
             <h2>Informations</h2>
             <ul>
-                <li>Nom :</li>
-                <li>Prénom :</li>
-                <li>Adresse mail :</li>
-                <li>Prénom :</li>
-                <li>Prénom :</li>
-                <li>Prénom :</li>
+                <li>{{ app.user.username }}</li>
+                <li>{{ app.user.name }}</li>
+                <li>{{ app.user.lastname }}</li>
+                <li>{{ app.user.email }}</li>
             </ul>
         </div>
         <div class="calendar-profil">
@@ -76,7 +74,7 @@
             </div>
         </div>
         <div>
-            <a class="add-manga" href="#">Ajouter manga</a>
+            <a class="add-manga" href="{{ path('home') }}">Ajouter manga</a>
         </div>
     </div>
 {% endblock %}

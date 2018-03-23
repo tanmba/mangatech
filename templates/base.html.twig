@@ -194,16 +194,28 @@
                 width: 50%;
             }
 
+            .manga-description {
+                text-align: center;
+            }
+
+            .manga-description img {
+                width: 20%;
+            }
+
         </style>
     </head>
-    <header>
-    </header>
     <body>
     <nav>
         <ul>
-            <li class="logo"><a href="#"><img src="https://i.pinimg.com/originals/88/d5/84/88d5840203e10a43f538c74a32e761b4.jpg"></a></li>
+            <li class="logo"><a href="/profile"><img src="https://i.pinimg.com/originals/88/d5/84/88d5840203e10a43f538c74a32e761b4.jpg"></a></li>
             <li class="search"><a href="/mangalist">Rechercher</a></li>
-            <li class="profil"><a href="/profile">Profil</a></li>
+            <li class="profil">
+                <a href="/profile">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <p>Bonjour, {{ app.user.username }}</p>
+                    {% endif %}
+                </a>
+            </li>
         </ul>
     </nav>
 
