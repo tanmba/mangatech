@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\UserAdmin;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends Controller
 {
@@ -16,13 +19,4 @@ class AdminController extends Controller
             'controller_name' => 'AdminController',
         ]);
     }
-//    /**
-//     * @Route("/", name="profile")
-//     */
-//    public function profile()
-//    {
-//        return $this->render('blog/index.html.twig', [
-//            'controller_name' => 'AdminController',
-//        ]);
-//    }
 }

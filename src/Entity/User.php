@@ -64,9 +64,15 @@ class User implements UserInterface
 
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $IsAdmin = false;
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
 
     public function __construct()
     {
@@ -197,6 +203,46 @@ class User implements UserInterface
     {
         $this->email = $email;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsAdmin()
+    {
+        return $this->IsAdmin;
+    }
+
+    /**
+     * @param mixed $IsAdmin
+     */
+    public function setIsAdmin($IsAdmin)
+    {
+        $this->IsAdmin = $IsAdmin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
     public function getSalt()
     {
         // The bcrypt and argon2i algorithms don't require a separate salt.
@@ -206,10 +252,53 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+        $this->setPlainPassword(null);
     }
-
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        if ($this->getisAdmin()) {
+            return ['ROLE_ADMIN'];
+        }
+
+        return ['ROLE_USER'];
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 }
