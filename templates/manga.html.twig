@@ -2,13 +2,11 @@
 
 {% block body %}
     <div class="manga-description">
-        {% for manga in mangas %}
-            <h1>{{ manga.title }}</h1>
-            <h2>{{ manga.availability }}></h2>
-            <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
-            <h3>{{ manga.author }}</h3>
-            <h4>{{ manga.genre }}</h4>
-            <p>{{ manga.synopsis }}</p>
-        {% endfor %}
+        <h1>{{ mangas.title }}</h1>
+        <h2>Dispos : {{ mangas.availability }}></h2>
+        <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
+        <h3>Auteur : {{ mangas.author }}</h3>
+        <h4>Genre : {{ mangas.genre }}</h4>
+        <p>Synopsis :{{ mangas.synopsis }}</p>
     </div>
 {% endblock %}
