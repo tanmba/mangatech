@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Mangas;
 use App\Entity\User;
+use App\Form\CollectionType;
 use App\Form\ConnectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +26,27 @@ class UserController extends Controller
     /**
      * @Route("/c", name="home")
      */
-    public function home()
+    public function newMangas(Request $request)
     {
-        return $this->render('home.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $collection = new Mangas();
+        $form = $this->createForm(CollectionType::class, $collection);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // 4) save the User!
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($collection);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('mangalist');
+
+        }
+        return $this->render('home.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
     }
+
 
     /**
      * @Route("/form", name="form")
