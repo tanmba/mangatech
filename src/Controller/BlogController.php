@@ -53,11 +53,11 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/manga", name="manga")
+     * @Route("/manga/{id}", name="manga")
      */
-    public function manga(MangasRepository $mangasRepository)
+    public function manga(MangasRepository $mangasRepository, $id)
     {
-        $mangas = $mangasRepository->findAll();
+        $mangas = $mangasRepository->find($id);
 
         return $this->render('manga.html.twig', [
             'controller_name' => 'BlogController',

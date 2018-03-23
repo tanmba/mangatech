@@ -3,13 +3,15 @@
 {% block body %}
     <div class="manga-list">
         <h2>Liste de mangas</h2>
-        <a class="mangas" href="/manga">
+        <div class="mangas">
             {% for manga in mangas %}
-                <div class="manga">
-                    <h4>{{ manga.title }}</h4>
-                    <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
-                </div>
+                <a class="manga" href="/manga/{{ manga.id }}">
+                    <div>
+                        <h4>{{ manga.title }}</h4>
+                        <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
+                    </div>
+                </a>
             {% endfor %}
-        </a>
+        </div>
     </div>
 {% endblock %}

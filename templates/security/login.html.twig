@@ -1,30 +1,69 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <style>
+        form {
+            text-align: center;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        label {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 20%;
+            height: 30px;
+            margin: 0 auto;
+            border: 1px solid #cc0000;
+        }
+
+        button {
+            display: block;
+            width: 10%;
+            height: 30px;
+            margin: 0 auto;
+            margin-top: 20px;
+            background: transparent;
+            border: 1px solid #cc0000;
+            color: #cc0000;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #cc0000;
+            color: #ffffff;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+    </style>
+
 {% if error %}
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
+    <h2>Connexion</h2>
 <form action="{{ path('login') }}" method="post">
-    <p>
-        <label for="username">Username:</label>
+    <div>
+        <label for="username">Username</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" />
-    </p>
-    <p>
-        <label for="password">Password:</label>
+    </div>
+    <div>
+        <label for="password">Password</label>
         <input type="password" id="password" name="_password" />
-    </p>
+    </div>
 
     <input type="hidden" name="_target_path" value="{{ path('blog') }}" />
 
     <button type="submit">login</button>
 </form>
-</body>
-</html>
+{% endblock %}
