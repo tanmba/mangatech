@@ -20,18 +20,18 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $i = 1;
-
-        while ($i <= 3) {
-            $user = new User();
-            $user->setName('name'.$i);
-            $user->setLastname('lastname'.$i);
-            $user->setUsername('Username'.$i);
-            $user->setPassword($this->encoder->encodePassword($user, 'mdp' . $i));
-            $user->setEmail('user' . $i . '@gmail.com');
-            $manager->persist($user);
-            $i++;
-        }
+//        $i = 1;
+//
+//        while ($i <= 3) {
+//            $user = new User();
+//            $user->setName('name'.$i);
+//            $user->setLastname('lastname'.$i);
+//            $user->setUsername('Username'.$i);
+//            $user->setPassword($this->encoder->encodePassword($user, 'mdp' . $i));
+//            $user->setEmail('user' . $i . '@gmail.com');
+//            $manager->persist($user);
+//            $i++;
+//        }
 
         $admin = new User();
         $admin->setName('name_Admin');
