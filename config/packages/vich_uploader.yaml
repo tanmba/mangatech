@@ -1,0 +1,15 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        manga_covers:
+            uri_prefix:         '%app.path.manga_covers%'
+            upload_destination: '%kernel.root_dir%/../public/uploads/cover/mangas'
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/mangas
+    #        upload_destination: '%kernel.project_dir%/public/cover/mangas'
+
+parameters:
+    app.path.manga_covers: /uploads/cover/mangas
+

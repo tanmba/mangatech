@@ -4,7 +4,7 @@
     <div class="manga-description">
         <h1>{{ mangas.title }}</h1>
         <h2>Dispos : {{ mangas.availability }}></h2>
-        <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
+        <img src="{{ vich_uploader_asset(mangas, 'imageFile') }}">
         <h3>Auteur : {{ mangas.author }}</h3>
         <h4>Genre : {{ mangas.genre }}</h4>
         <p>Synopsis :{{ mangas.synopsis }}</p>
