@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MangasRepository")
+ *  @Vich\Uploadable
  */
 class Mangas
 {
@@ -27,9 +30,22 @@ class Mangas
     private $author;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $cover;
+
+    /**
+     * @Vich\UploadableField(mapping="manga_covers", fileNameProperty="cover")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * @ORM\Column(type="string")
@@ -40,16 +56,6 @@ class Mangas
      * @ORM\Column(type="string")
      */
     private $genre;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_loan;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_back;
 
     /**
      * @ORM\Column(type="boolean")
@@ -109,6 +115,24 @@ class Mangas
         $this->author = $author;
     }
 
+    public function setImageFile(File $cover = null)
+    {
+        $this->imageFile = $cover;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($cover) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
     /**
      * @return mixed
      */
@@ -120,10 +144,11 @@ class Mangas
     /**
      * @param mixed $cover
      */
-    public function setCover($cover): void
+    public function setCover($cover)
     {
         $this->cover = $cover;
     }
+
 
     /**
      * @return mixed
@@ -174,35 +199,22 @@ class Mangas
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getDateLoan()
+    public function getUpdatedAt()
     {
-        return $this->date_loan;
+        return $this->updatedAt;
     }
 
     /**
-     * @param mixed $date_loan
+     * @param \DateTime $updatedAt
      */
-    public function setDateLoan($date_loan)
+    public function setUpdatedAt(\DateTime $updatedAt): void
     {
-        $this->date_loan = $date_loan;
+        $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDateBack()
-    {
-        return $this->date_back;
-    }
 
-    /**
-     * @param mixed $date_back
-     */
-    public function setDateBack($date_back)
-    {
-        $this->date_back = $date_back;
-    }
+
 
 }
