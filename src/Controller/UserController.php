@@ -15,16 +15,17 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class UserController extends Controller
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/", name="profile")
      */
-    public function index()
+    public function profile()
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        return $this->render('user/profile.html.twig', [
+            'controller_name' => 'MangaController',
         ]);
     }
 
     /**
+<<<<<<< Updated upstream
      * @Route("/c", name="home")
      */
     public function newMangas(Request $request)
@@ -50,6 +51,8 @@ class UserController extends Controller
 
 
     /**
+=======
+>>>>>>> Stashed changes
      * @Route("/form", name="form")
      */
     public function newConnection(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -69,9 +72,13 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
 
         }
-        return $this->render('connect.html.twig',
+        return $this->render('user/connect.html.twig',
             [
                 'form' => $form->createView()
             ]);
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 }
