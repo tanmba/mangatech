@@ -24,6 +24,8 @@ class UserFixtures extends Fixture
 
         while ($i <= 3) {
             $user = new User();
+            $user->setName('name'.$i);
+            $user->setLastname('lastname'.$i);
             $user->setUsername('Username'.$i);
             $user->setPassword($this->encoder->encodePassword($user, 'mdp' . $i));
             $user->setEmail('user' . $i . '@gmail.com');
@@ -32,6 +34,8 @@ class UserFixtures extends Fixture
         }
 
         $admin = new User();
+        $admin->setName('name_Admin');
+        $admin->setLastname('lastname_Admin');
         $admin->setUsername('Admin');
         $admin->setPassword($this->encoder->encodePassword($admin, 'admin'));
         $admin->setEmail('admin@gmail.com');
