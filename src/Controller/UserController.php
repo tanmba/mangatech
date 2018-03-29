@@ -16,57 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class UserController extends Controller
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/", name="profile")
      */
-    public function index()
+    public function profile()
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        return $this->render('user/profile.html.twig', [
+            'controller_name' => 'MangaController',
         ]);
     }
-
-    /**
-     * @Route("/c", name="home")
-     */
-    public function newMangas(Request $request)
-    {
-        $collection = new Mangas();
-        $form = $this->createForm(CollectionType::class, $collection);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
-            /** @var UploadedFile $file */
-            $file = $collection->getCover();
-
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-
-            // moves the file to the directory where cover are stored
-            $file->move(
-                $this->getParameter('cover_directory'),
-                $fileName
-            );
-
-            // updates the 'cover' property to store the PDF file name
-            // instead of its contents
-            $collection->setCover($fileName);
-
-
-            // 4) save the User!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($collection);
-            $entityManager->flush();
-
-
-            return $this->redirectToRoute('mangalist');
-
-        }
-
-        return $this->render('home.html.twig',
-            [
-                'form' => $form->createView()
-            ]);
-    }
-
 
     /**
      * @Route("/form", name="form")
@@ -88,7 +45,7 @@ class UserController extends Controller
             return $this->redirectToRoute('login');
 
         }
-        return $this->render('connect.html.twig',
+        return $this->render('user/connect.html.twig',
             [
                 'form' => $form->createView()
             ]);
