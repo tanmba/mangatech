@@ -42,6 +42,16 @@ class Mangas
     private $genre;
 
     /**
+     * @ORM\Column(type="date")
+     */
+    private $date_loan;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $date_back;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $availability;
@@ -163,7 +173,36 @@ class Mangas
         $this->availability = $availability;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDateLoan()
+    {
+        return $this->date_loan;
+    }
 
+    /**
+     * @param mixed $date_loan
+     */
+    public function setDateLoan($date_loan)
+    {
+        $this->date_loan = $date_loan;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getDateBack()
+    {
+        return $this->date_back;
+    }
+
+    /**
+     * @param mixed $date_back
+     */
+    public function setDateBack($date_back)
+    {
+        $this->date_back = $date_back;
+    }
 
 }

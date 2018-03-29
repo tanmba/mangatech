@@ -20,17 +20,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/login", name="login")
-     */
-    public function login()
-    {
-        return $this->render('login.html.twig', [
-            'controller_name' => 'BlogController',
-        ]);
-    }
-
-    /**
-     * @Route("/profile", name="profile")
+     * @Route("/", name="profile")
      */
     public function profile()
     {
