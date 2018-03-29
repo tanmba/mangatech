@@ -10,7 +10,15 @@ easy_admin:
             class: App\Entity\Mangas
             list:
             # 'name' doesn't exist as a Doctrine entity property
-            fields: ['id', 'title', 'author', 'cover', 'email']
+                fields:
+                    - { property: 'id' }
+                    - { property: 'title' }
+                    - { property: 'author' }
+                    - { property: 'cover', type: 'image', base_path: '%app.path.manga_covers%'  }
+                    - { property: 'synopsis' }
+                    - { property: 'genre' }
+                    - { property: 'updatedAt', type: 'date' }
+                    - { property: 'availability' }
 
         User:
             class: App\Entity\User

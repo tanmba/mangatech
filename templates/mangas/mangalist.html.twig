@@ -8,7 +8,7 @@
                 <a class="manga" href="/manga/{{ manga.id }}">
                     <div>
                         <h4>{{ manga.title }}</h4>
-                        <img src="https://i.pinimg.com/originals/58/0c/26/580c26e2593d75bb705956aa4b841e63.jpg">
+                        <img src={{ vich_uploader_asset(manga, 'imageFile') }} >
                     </div>
                 </a>
             {% endfor %}
