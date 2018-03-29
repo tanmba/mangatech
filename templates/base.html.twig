@@ -81,10 +81,9 @@
             }
 
             footer {
-                position: fixed;
+                position: relative;
                 width: 100%;
                 color: #cc0000;
-                bottom: 30px;
             }
 
             footer .copyright {
@@ -176,6 +175,10 @@
             }
 
             /*Manga list*/
+            .manga-list {
+                min-height: 500px;
+            }
+
             .manga-list h2 {
                 text-align: center;
             }
@@ -195,11 +198,22 @@
             }
 
             .manga-description {
-                text-align: center;
+                min-height: 500px;
             }
 
-            .manga-description img {
+            .manga-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+            .manga-cover {
                 width: 20%;
+                margin-right: 80px;
+            }
+
+            .manga-cover img {
+                width: 100%;
             }
 
             /*FORM*/
@@ -223,6 +237,10 @@
                 height: 30px;
                 margin: 0 auto;
                 border: 1px solid #cc0000;
+            }
+
+            .select-cover input {
+                border: none;
             }
 
             select {
