@@ -29,6 +29,11 @@ class User implements UserInterface
     private $mangas;
 
     /**
+     * @ORM\OneToMany(targetEntity="Copy", mappedBy="user")
+     */
+    private $copy;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $name;
@@ -203,6 +208,24 @@ class User implements UserInterface
     {
         $this->email = $email;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCopy()
+    {
+        return $this->copy;
+    }
+
+    /**
+     * @param mixed $copy
+     */
+    public function setCopy($copy): void
+    {
+        $this->copy = $copy;
+    }
+
+
 
     /**
      * @return mixed
