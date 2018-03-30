@@ -6,6 +6,8 @@ use App\Entity\Mangas;
 use App\Entity\User;
 use App\Form\CollectionType;
 use App\Form\ConnectionType;
+use App\Repository\MangasRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,8 +20,16 @@ class UserController extends Controller
     /**
      * @Route("/", name="profile")
      */
-    public function profile()
+    public function profile(UserRepository $userRepository, MangasRepository $mangasRepository)
     {
+        $user = $this->getUser();
+
+        $userId = $user->getId();
+
+        $userMangas2 = $mangasRepository->getUserMangas($userId);
+
+     
+
         return $this->render('user/profile.html.twig', [
             'controller_name' => 'MangaController',
         ]);
@@ -28,8 +38,9 @@ class UserController extends Controller
     /**
      * @Route("/form", name="form")
      */
-    public function newConnection(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function newConnection(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
     {
+
         $connection = new User();
         $form = $this->createForm(ConnectionType::class, $connection);
         $form->handleRequest($request);
@@ -42,7 +53,33 @@ class UserController extends Controller
             $entityManager->persist($connection);
             $entityManager->flush();
 
+            $data = (object) $form->getData();
+
+            $message = (new \Swift_Message('Hello Email'))
+                ->setFrom('projetmangatech@gmail.com')
+                ->setTo($data->getEmail())
+                ->setBody( $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig'
+                ),
+                    'text/html'
+                )
+                /*
+                 * If you also want to include a plaintext version of the message
+                ->addPart(
+                    $this->renderView(
+                        'emails/registration.txt.twig',
+                        array('name' => $name)
+                    ),
+                    'text/plain'
+                )
+                */
+            ;
+
+            $mailer->send($message);
+
             return $this->redirectToRoute('login');
+
 
         }
         return $this->render('user/connect.html.twig',
