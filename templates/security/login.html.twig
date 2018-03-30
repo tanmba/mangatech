@@ -51,19 +51,25 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-    <h2>Connexion</h2>
-<form action="{{ path('login') }}" method="post">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="_password" />
+    <div class="login">
+        <div class="connexion">
+            <h2>Connexion</h2>
+            <form action="{{ path('login') }}" method="post">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="_password" />
+                </div>
+
+                <input type="hidden" name="_target_path" value="{{ path('profile') }}" />
+
+                <button type="submit">login</button>
+            </form>
+            <a href="/form">Pas de compte ? Inscrivez vous !</a>
+        </div>
     </div>
 
-    <input type="hidden" name="_target_path" value="{{ path('profile') }}" />
-
-    <button type="submit">login</button>
-</form>
 {% endblock %}
