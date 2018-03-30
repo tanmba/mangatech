@@ -20,6 +20,11 @@ class Mangas
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="Copy", mappedBy="mangas")
+     */
+    private $copy;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $title;
@@ -212,6 +217,22 @@ class Mangas
     public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCopy()
+    {
+        return $this->copy;
+    }
+
+    /**
+     * @param mixed $copy
+     */
+    public function setCopy($copy): void
+    {
+        $this->copy = $copy;
     }
 
 
