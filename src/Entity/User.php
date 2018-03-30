@@ -23,8 +23,7 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mangas")
-     * @ORM\JoinTable(name="user_mangas")
+     * @ORM\ManyToMany(targetEntity="Mangas", inversedBy="user", cascade={"persist"})
      */
     private $mangas;
 
@@ -203,6 +202,8 @@ class User implements UserInterface
     {
         $this->email = $email;
     }
+
+
 
     /**
      * @return mixed

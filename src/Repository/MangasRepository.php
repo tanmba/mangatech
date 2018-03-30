@@ -19,16 +19,15 @@ class MangasRepository extends ServiceEntityRepository
         parent::__construct($registry, Mangas::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function getUserMangas($userId)
     {
-        return $this->createQueryBuilder('m')
-            ->where('m.something = :value')->setParameter('value', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.user', 'm')
+            ->where('m.id = :id')
+            ->setParameter('id', $userId)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
+
 }
