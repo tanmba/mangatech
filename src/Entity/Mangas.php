@@ -20,6 +20,11 @@ class Mangas
     private $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="mangas", cascade={"persist"} )
+     */
+    private $user;
+
+    /**
      * @ORM\OneToMany(targetEntity="Copy", mappedBy="mangas")
      */
     private $copy;
@@ -235,7 +240,21 @@ class Mangas
         $this->copy = $copy;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
 
 
 }

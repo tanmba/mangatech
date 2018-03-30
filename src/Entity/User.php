@@ -23,15 +23,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mangas")
-     * @ORM\JoinTable(name="user_mangas")
+     * @ORM\ManyToMany(targetEntity="Mangas", inversedBy="user", cascade={"persist"})
      */
     private $mangas;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Copy", mappedBy="user")
-     */
-    private $copy;
 
     /**
      * @ORM\Column(type="string")
@@ -207,22 +201,6 @@ class User implements UserInterface
     public function setEmail($email): void
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopy()
-    {
-        return $this->copy;
-    }
-
-    /**
-     * @param mixed $copy
-     */
-    public function setCopy($copy): void
-    {
-        $this->copy = $copy;
     }
 
 

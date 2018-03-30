@@ -6,6 +6,8 @@ use App\Entity\Mangas;
 use App\Entity\User;
 use App\Form\CollectionType;
 use App\Form\ConnectionType;
+use App\Repository\MangasRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,8 +20,16 @@ class UserController extends Controller
     /**
      * @Route("/", name="profile")
      */
-    public function profile()
+    public function profile(UserRepository $userRepository, MangasRepository $mangasRepository)
     {
+        $user = $this->getUser();
+
+        $userId = $user->getId();
+
+        $userMangas2 = $mangasRepository->getUserMangas($userId);
+
+     
+
         return $this->render('user/profile.html.twig', [
             'controller_name' => 'MangaController',
         ]);
