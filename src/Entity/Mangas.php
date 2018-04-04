@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -23,11 +24,6 @@ class Mangas
      * @ORM\ManyToMany(targetEntity="User", mappedBy="mangas", cascade={"persist"} )
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Copy", mappedBy="mangas")
-     */
-    private $copy;
 
     /**
      * @ORM\Column(type="string")
@@ -222,22 +218,6 @@ class Mangas
     public function setUpdatedAt(\DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCopy()
-    {
-        return $this->copy;
-    }
-
-    /**
-     * @param mixed $copy
-     */
-    public function setCopy($copy): void
-    {
-        $this->copy = $copy;
     }
 
     /**

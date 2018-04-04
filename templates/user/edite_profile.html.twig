@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+        <h2>Édition de compte</h2>
+        {{ form_start(form) }}
+        {{ form_row(form.username) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.lastname) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second) }}
+
+        <button type="submit">Édition !</button>
+        {{ form_end(form) }}
+    {% endblock %}
