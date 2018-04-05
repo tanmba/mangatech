@@ -5,7 +5,7 @@
         <h2>Liste de mangas</h2>
         <div class="mangas">
             {% for copy in mangaCopies %}
-                <a class="manga" href="/mangasCollection/{{ copy.user.id }}">
+                <a class="manga" href="/borrow/{{ copy.manga.id }}/{{ copy.user.id }}">
                     <div>
                         <h4>{{ copy.user.username }}</h4>
                     </div>
