@@ -14,9 +14,6 @@
                 <p>Synopsis :{{ mangas.synopsis }}</p>
             </div>
         </div>
-        {% if mangas.availability >= 1 %}
-            <a class="button" href="/removetest">Emprunter</a>
-        {% endif %}
         {% set break = false %}
         {% if app.user.hasManga(mangas) %}
             <a class="button" href="/removeManga/{{ mangas.id }}">supprimer collection</a>
