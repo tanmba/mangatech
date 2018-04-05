@@ -27,6 +27,26 @@ class User implements UserInterface
      */
     private $mangas;
 
+    public function __construct()
+    {
+        $this->mangas = new ArrayCollection();
+    }
+
+    public function addFavMangas(Mangas $mangas)
+    {
+        $mangas->addUser($this); // synchronously updating inverse side
+        $this->mangas[] = $mangas;
+
+        $this->isActive = true;
+    }
+
+    public function removeFavMangas(Mangas $mangas)
+    {
+        if (!$this->mangas->contains($mangas)) {
+            return;
+        }
+        $this->mangas->removeElement($mangas);
+    }
     /**
      * @ORM\Column(type="string")
      */
@@ -72,13 +92,6 @@ class User implements UserInterface
      */
     private $isActive;
 
-
-    public function __construct()
-    {
-        $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid('', true));
-    }
 
 
     /**

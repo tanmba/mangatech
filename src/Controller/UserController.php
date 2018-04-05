@@ -36,6 +36,25 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/collection", name="collection")
+     */
+    public function collection(UserRepository $userRepository, MangasRepository $mangasRepository)
+    {
+        $user = $this->getUser();
+
+        $userId = $user->getId();
+
+        $userMangas = $mangasRepository->getUserMangas($userId);
+
+
+
+        return $this->render('user/collection.html.twig', [
+            'controller_name' => 'MangaController',
+            'userMangas' => $userMangas
+        ]);
+    }
+
+    /**
      * @Route("/form", name="form")
      */
     public function newConnection(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
