@@ -245,6 +245,7 @@ class Mangas
 
     public function __construct() {
         $this->copies = new ArrayCollection();
+        $this->isActive = true;
     }
 
     public function canBorrow()
