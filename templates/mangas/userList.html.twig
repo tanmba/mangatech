@@ -4,10 +4,10 @@
     <div class="manga-list">
         <h2>Liste de mangas</h2>
         <div class="mangas">
-            {% for user in mangaUsers %}
-                <a class="manga" href="/mangasCollection/{{ user.id }}">
+            {% for copy in mangaCopies %}
+                <a class="manga" href="/mangasCollection/{{ copy.user.id }}">
                     <div>
-                        <h4>{{ user.username }}</h4>
+                        <h4>{{ copy.user.username }}</h4>
                     </div>
                 </a>
             {% endfor %}

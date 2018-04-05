@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Copy;
 use App\Form\CollectionType;
+use App\Repository\CopyRepository;
 use App\Repository\MangasRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,7 +26,6 @@ class MangaController extends Controller
         $mangas = $mangasRepository->findAll();
 
         return $this->render('mangas/mangalist.html.twig', [
-            'controller_name' => 'MangaController',
             'mangas' => $mangas,
         ]);
     }
@@ -32,37 +33,27 @@ class MangaController extends Controller
     /**
      * @Route("/manga/{id}", name="manga")
      */
-    public function manga(MangasRepository $mangasRepository, $id)
+    public function manga(CopyRepository $copyRepository, MangasRepository $mangasRepository, $id)
     {
         $mangas = $mangasRepository->find($id);
         $user = $this->getUser();
         $userId = $user->getId();
-        $userMangas = $mangasRepository->getUserMangas($userId);
+        $userCopies = $copyRepository->getUserCopies($userId);
 
         return $this->render('mangas/manga.html.twig', [
-            'controller_name' => 'MangaController',
             'mangas' => $mangas,
-            'userMangas' => $userMangas,
+            'userCopies' => $userCopies,
         ]);
     }
 
     /**
      * @Route("/userList/{id}", name="userList")
      */
-    public function collection(UserRepository $userRepository, MangasRepository $mangasRepository, $id)
+    public function collection(CopyRepository $copyRepository, $id)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $mangas = $entityManager->getRepository(User::class)->find($id);
-
-        $mangasId = $mangas->getId();
-
-        $mangaUsers = $userRepository->getMangasUser($mangasId);
-
-
-
+        $mangaCopies = $copyRepository->getMangasCopies($id);
         return $this->render('mangas/userList.html.twig', [
-            'controller_name' => 'UserController',
-            'mangaUsers' => $mangaUsers
+            'mangaCopies' => $mangaCopies
         ]);
     }
 
@@ -74,21 +65,22 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function addMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, MangasRepository $mangasRepository, UserRepository $userRepository) {
+   public function addMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, CopyRepository $copyRepository) {
 
        $entityManager = $this->getDoctrine()->getManager();
        $user = $this->getUser();
        $userId = $user->getId();
            /** @var Mangas $mangas */
            $mangas = $entityManager->getRepository(Mangas::class)->find($id);
-           $user->addMangas($mangas);
-           $entityManager->persist($user);
+           $copy = new Copy();
+           $copy->setUser($user);
+           $copy->setManga($mangas);
+           $entityManager->persist($copy);
            $entityManager->flush();
 
-       $userMangas = $mangasRepository->getUserMangas($userId);
+       $userCopies = $copyRepository->getUserCopies($userId);
        return $this->render('user/collection.html.twig', [
-           'controller_name' => 'MangaController',
-           'userMangas' => $userMangas
+           'userCopies' => $userCopies
        ]);
    }
     /**
@@ -98,21 +90,18 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function removeMangaAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, MangasRepository $mangasRepository, UserRepository $userRepository) {
+   public function removeMangaAction(Request $request, $id, CopyRepository $copyRepository) {
 
        $entityManager = $this->getDoctrine()->getManager();
        $user = $this->getUser();
        $userId = $user->getId();
-           /** @var Mangas $mangas */
-           $mangas = $entityManager->getRepository(Mangas::class)->find($id);
-           $user->removeMangas($mangas);
-           $entityManager->persist($user);
-           $entityManager->flush();
+       $copy = $copyRepository->getByUserAndManga($userId, $id);
+       $entityManager->remove($copy);
+       $entityManager->flush();
 
-       $userMangas = $mangasRepository->getUserMangas($userId);
+       $userCopies = $copyRepository->getUserCopies($userId);
        return $this->render('user/collection.html.twig', [
-           'controller_name' => 'MangaController',
-           'userMangas' => $userMangas
+           'userCopies' => $userCopies
        ]);
    }
 
@@ -160,7 +149,7 @@ class MangaController extends Controller
     /**
      * @Route("/updatemanga/{id}", name="updatemanga")
      */
-    public function updateManga(Request $request, MangasRepository $mangasRepository, $id)
+    public function updateManga(Request $request, CopyRepository $mangasRepository, $id)
     {
         $collection = $mangasRepository->find($id);
         $form = $this->createForm(CollectionType::class, $collection);

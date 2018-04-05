@@ -31,15 +31,4 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
-
-    public function getMangasUser($mangasId)
-    {
-        return $this->createQueryBuilder('u')
-            ->innerJoin('u.mangas', 'm')
-            ->where('m.id = :id')
-            ->setParameter('id', $mangasId)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 }
