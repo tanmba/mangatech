@@ -89,15 +89,41 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function Borrow(Request $request, $id_copy, ObjectManager $manager, CopyRepository $copyRepository) {
+   public function Borrow(Request $request, $id_copy, ObjectManager $manager, CopyRepository $copyRepository, \Swift_Mailer $mailer) {
 
 
        $entityManager = $this->getDoctrine()->getManager();
        $copy=$copyRepository->find($id_copy);
+       $user=$this->getUser();
 
        $copy->setBorrowedBy($this->getUser());
        $entityManager->persist($copy);
        $entityManager->flush();
+
+       $data = (object) $user->getEmail();
+
+       $message = (new \Swift_Message('Hello Email'))
+           ->setFrom('projetmangatech@gmail.com')
+           ->setTo($data)
+           ->setBody( $this->renderView(
+           // templates/emails/registration.html.twig
+               'emails/availability.html.twig'
+           ),
+               'text/html'
+           )
+           /*
+            * If you also want to include a plaintext version of the message
+           ->addPart(
+               $this->renderView(
+                   'emails/registration.txt.twig',
+                   array('name' => $name)
+               ),
+               'text/plain'
+           )
+           */
+       ;
+
+       $mailer->send($message);
 
        return $this->render('user/collection.html.twig', [
            'userCopies' => $copy
