@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -256,5 +258,13 @@ class Mangas
         $this->user = $user;
     }
 
+    public function addUser(User $user)
+    {
+        $this->user[] = $user;
+    }
+
+    public function __construct() {
+        $this->user = new ArrayCollection();
+    }
 
 }

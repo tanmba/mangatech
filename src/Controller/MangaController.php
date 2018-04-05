@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\CollectionType;
 use App\Repository\MangasRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +40,37 @@ class MangaController extends Controller
             'mangas' => $mangas,
         ]);
     }
+    /*public function addFavTeamAction(Request $request, Mangas $mangas, ObjectManager $manager)
+    {
+
+        $user = $this->getUser();
+        $user->addFavMangas($mangas);
+        $manager->persist($user);
+        $manager->flush();
+    }*/
+
+    /**
+     * @Route("/favmanga/{id}", name="add_fav_manga")
+     * @param Request $request
+     * @param Mangas $mangas
+     * @param ObjectManager $manager
+     * @return int|string
+     */
+   public function addFavMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user) {
+
+       $entityManager = $this->getDoctrine()->getManager();
+       $mangas = $entityManager->getRepository(Mangas::class)->find($id);
+       $user->addFavMangas('');
+       $entityManager->persist($user);
+       $entityManager->flush();
+
+
+        return $this->render('mangas/mangas.html.twig', [
+            'controller_name' => 'MangaController',
+            'mangas' => $mangas,
+        ]);
+    }
+
     /**
      * @Route("/addmanga", name="home")
      */

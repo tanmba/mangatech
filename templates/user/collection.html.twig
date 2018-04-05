@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="home-content">
+        <div class="info-profil">
+            <h2>Informations</h2>
+            <ul>
+                <li>{{ app.user.username }}</li>
+                <li>{{ app.user.name }}</li>
+                <li>{{ app.user.lastname }}</li>
+                <li>{{ app.user.email }}</li>
+            </ul>
+        </div>
+        <div class="calendar-profil">
+            <h2>Calendrier des prêts</h2>
+            <div class="mangas">
+                {% for manga in userMangas %}
+                    <a class="manga" href="/manga/{{ manga.id }}">
+                        <div>
+                            <h4>{{ manga.title }}</h4>
+                            <img src={{ vich_uploader_asset(manga, 'imageFile') }} >
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <a class="add-manga" href="{{ path('home') }}">Ajouter manga</a>
+        </div>
+    </div>
+{% endblock %}
