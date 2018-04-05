@@ -35,10 +35,14 @@ class MangaController extends Controller
     public function manga(MangasRepository $mangasRepository, $id)
     {
         $mangas = $mangasRepository->find($id);
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $userMangas = $mangasRepository->getUserMangas($userId);
 
         return $this->render('mangas/manga.html.twig', [
             'controller_name' => 'MangaController',
             'mangas' => $mangas,
+            'userMangas' => $userMangas,
         ]);
     }
 
