@@ -80,6 +80,18 @@
                 color: #FFFFFF;
             }
 
+            .logout {
+                text-align: right;
+                width: 15%;
+                border-left: 1px solid;
+                margin-left: 10px;
+            }
+
+            .logout a {
+                text-decoration: none;
+                color: #cc0000;
+            }
+
             footer {
                 position: relative;
                 width: 100%;
@@ -302,6 +314,9 @@
                     {% endif %}
                 </a>
             </li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li class="logout"><a href="/logout">Déconnexion</a></li>
+            {% endif %}
         </ul>
     </nav>
 
