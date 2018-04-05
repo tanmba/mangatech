@@ -47,6 +47,27 @@ class MangaController extends Controller
     }
 
     /**
+     * @Route("/userList/{id}", name="userList")
+     */
+    public function collection(UserRepository $userRepository, MangasRepository $mangasRepository, $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $mangas = $entityManager->getRepository(User::class)->find($id);
+
+        $mangasId = $mangas->getId();
+
+        $mangaUsers = $userRepository->getMangasUser($mangasId);
+
+
+
+        return $this->render('mangas/userList.html.twig', [
+            'controller_name' => 'UserController',
+            'mangaUsers' => $mangaUsers
+        ]);
+    }
+
+
+    /**
      * @Route("/addCollection/{id}", name="addCollection")
      * @param Request $request
      * @param Mangas $mangas

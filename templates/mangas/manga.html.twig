@@ -14,15 +14,14 @@
                 <p>Synopsis :{{ mangas.synopsis }}</p>
             </div>
         </div>
-        {% if mangas.availability >= 1 %}
-            <a class="button">Emprunter</a>
-        {% endif %}
-
         {% set break = false %}
         {% if mangas in userMangas %}
             <a class="button" href="/removeManga/{{ mangas.id }}">supprimer collection</a>
         {% else %}
-            <a class="button" href="/favmanga/{{ mangas.id }}">ajouter collection</a>
+            {% if mangas.availability >= 1 %}
+                <a class="button" href="/userList/{{ mangas.id }}">Emprunter</a>
+            {% endif %}
+            <a class="button" href="/addCollection/{{ mangas.id }}">ajouter collection</a>
         {% endif %}
     </div>
 {% endblock %}

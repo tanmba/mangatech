@@ -32,17 +32,14 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getOneOrNullResult();
     }
 
-
-    // TODO fonction ajout d'un manga
-    public function addManga(User $user, $manga)
+    public function getMangasUser($mangasId)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.id = :userId')
-            ->setParameter('userId', $user->getId())
-
-            // Compare $id avec
+            ->innerJoin('u.mangas', 'm')
+            ->where('m.id = :id')
+            ->setParameter('id', $mangasId)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getResult()
+            ;
     }
-
 }

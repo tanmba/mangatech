@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="manga-list">
+        <h2>Liste de mangas</h2>
+        <div class="mangas">
+            {% for user in mangaUsers %}
+                <a class="manga" href="/mangasCollection/{{ user.id }}">
+                    <div>
+                        <h4>{{ user.username }}</h4>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
