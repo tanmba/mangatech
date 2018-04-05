@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class UserController extends Controller
 {
     /**
-     * @Route("/", name="profile")
+     * @Route("/", name="home")
      */
     public function profile(UserRepository $userRepository, MangasRepository $mangasRepository)
     {
@@ -102,6 +102,59 @@ class UserController extends Controller
 
         }
         return $this->render('user/connect.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * @Route("/form/add", name="formAdd")
+     */
+    public function addConnection(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
+    {
+
+        $connection = $this->getUser();
+        $form = $this->createForm(ConnectionType::class, $connection);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($connection, $connection->getPlainPassword());
+            $connection->setPassword($password);
+
+            // 4) save the User!
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($connection);
+            $entityManager->flush();
+
+            $data = (object) $form->getData();
+
+            $message = (new \Swift_Message('Hello Email'))
+                ->setFrom('projetmangatech@gmail.com')
+                ->setTo($data->getEmail())
+                ->setBody( $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig'
+                ),
+                    'text/html'
+                )
+                /*
+                 * If you also want to include a plaintext version of the message
+                ->addPart(
+                    $this->renderView(
+                        'emails/registration.txt.twig',
+                        array('name' => $name)
+                    ),
+                    'text/plain'
+                )
+                */
+            ;
+
+            $mailer->send($message);
+
+            return $this->redirectToRoute('login');
+
+
+        }
+        return $this->render('user/addConnect.html.twig',
             [
                 'form' => $form->createView()
             ]);

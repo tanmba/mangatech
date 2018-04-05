@@ -68,7 +68,7 @@ class MangaController extends Controller
    }
 
     /**
-     * @Route("/addmanga", name="home")
+     * @Route("/addmanga", name="addmanga")
      */
     public function newMangas(Request $request)
     {
@@ -108,6 +108,32 @@ class MangaController extends Controller
                 'form' => $form->createView()
             ]);
     }
+    /**
+     * @Route("/updatemanga/{id}", name="updatemanga")
+     */
+    public function updateManga(Request $request, MangasRepository $mangasRepository, $id)
+    {
+        $collection = $mangasRepository->find($id);
+        $form = $this->createForm(CollectionType::class, $collection);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // 4) save the User!
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($collection);
+            $entityManager->flush();
+
+
+            return $this->redirectToRoute('mangalist');
+
+        }
+
+        return $this->render('mangas/updatemanga.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+
     /**
      * @return string
      */

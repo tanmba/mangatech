@@ -5,9 +5,9 @@ namespace App\Form;
 use App\Entity\Mangas;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CollectionType extends AbstractType
 {
@@ -16,7 +16,7 @@ class CollectionType extends AbstractType
         $builder
             ->add('title')
             ->add('author')
-            ->add('cover', FileType::class)
+            ->add('imageFile', VichImageType::class)
             ->add('synopsis')
             ->add('genre')
             ->add('availability', ChoiceType::class, array(
