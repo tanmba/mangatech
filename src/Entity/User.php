@@ -32,7 +32,7 @@ class User implements UserInterface
         $this->mangas = new ArrayCollection();
     }
 
-    public function addFavMangas(Mangas $mangas)
+    public function addMangas(Mangas $mangas)
     {
         $mangas->addUser($this); // synchronously updating inverse side
         $this->mangas[] = $mangas;
@@ -40,7 +40,7 @@ class User implements UserInterface
         $this->isActive = true;
     }
 
-    public function removeFavMangas(Mangas $mangas)
+    public function removeMangas(Mangas $mangas)
     {
         if (!$this->mangas->contains($mangas)) {
             return;
