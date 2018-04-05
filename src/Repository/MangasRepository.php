@@ -19,15 +19,5 @@ class MangasRepository extends ServiceEntityRepository
         parent::__construct($registry, Mangas::class);
     }
 
-    public function getUserMangas($userId)
-    {
-        return $this->createQueryBuilder('u')
-            ->innerJoin('u.user', 'm')
-            ->where('m.id = :id')
-            ->setParameter('id', $userId)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 
 }

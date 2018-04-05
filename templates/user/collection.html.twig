@@ -14,11 +14,11 @@
         <div class="calendar-profil">
             <h2>Calendrier des prêts</h2>
             <div class="mangas">
-                {% for manga in userMangas %}
-                    <a class="manga" href="/manga/{{ manga.id }}">
+                {% for copy in userCopies %}
+                    <a class="manga" href="/manga/{{ copy.manga.id }}">
                         <div>
-                            <h4>{{ manga.title }}</h4>
-                            <img src={{ vich_uploader_asset(manga, 'imageFile') }} >
+                            <h4>{{ copy.manga.title }}</h4>
+                            <img src={{ vich_uploader_asset(copy.manga, 'imageFile') }} >
                         </div>
                     </a>
                 {% endfor %}
