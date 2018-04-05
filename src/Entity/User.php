@@ -23,29 +23,29 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Mangas", inversedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Copy", mappedBy="user", cascade={"persist"})
      */
-    private $mangas;
+    private $copies;
 
     public function __construct()
     {
-        $this->mangas = new ArrayCollection();
+        $this->copies = new ArrayCollection();
     }
 
     public function addMangas(Mangas $mangas)
     {
         $mangas->addUser($this); // synchronously updating inverse side
-        $this->mangas[] = $mangas;
+        $this->copies[] = $mangas;
 
         $this->isActive = true;
     }
 
     public function removeMangas(Mangas $mangas)
     {
-        if (!$this->mangas->contains($mangas)) {
+        if (!$this->copies->contains($mangas)) {
             return;
         }
-        $this->mangas->removeElement($mangas);
+        $this->copies->removeElement($mangas);
     }
     /**
      * @ORM\Column(type="string")
@@ -113,17 +113,17 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getMangas()
+    public function getCopies()
     {
-        return $this->mangas;
+        return $this->copies;
     }
 
     /**
-     * @param mixed $mangas
+     * @param mixed $copies
      */
-    public function setMangas($mangas): void
+    public function setCopies($copies): void
     {
-        $this->mangas = $mangas;
+        $this->copies = $copies;
     }
 
     public function getPlainPassword()
@@ -291,6 +291,15 @@ class User implements UserInterface
         }
 
         return ['ROLE_USER'];
+    }
+
+    public function hasManga(Mangas $manga)
+    {
+        $availableCopies = array_filter($this->copies->toArray(), function (Copy $copy) use ($manga) {
+            return $copy->getManga() === $manga;
+        });
+
+        return \count($availableCopies) >= 1;
     }
 
 }

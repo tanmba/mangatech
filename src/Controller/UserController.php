@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Mangas;
 use App\Entity\User;
 use App\Form\CollectionType;
 use App\Form\ConnectionType;
-use App\Repository\MangasRepository;
+use App\Repository\CopyRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,37 +19,33 @@ class UserController extends Controller
     /**
      * @Route("/", name="home")
      */
-    public function profile(UserRepository $userRepository, MangasRepository $mangasRepository)
+    public function profile(UserRepository $userRepository, CopyRepository $copyRepository)
     {
         $user = $this->getUser();
 
         $userId = $user->getId();
 
-        $userMangas2 = $mangasRepository->getUserMangas($userId);
-
-     
+        $userCopies = $copyRepository->getUserCopies($userId);
 
         return $this->render('user/profile.html.twig', [
-            'controller_name' => 'MangaController',
+            'copies' => $userCopies,
         ]);
     }
 
     /**
      * @Route("/collection", name="collection")
      */
-    public function collection(UserRepository $userRepository, MangasRepository $mangasRepository)
+    public function collection(UserRepository $userRepository, CopyRepository $copyRepository)
     {
         $user = $this->getUser();
 
         $userId = $user->getId();
 
-        $userMangas = $mangasRepository->getUserMangas($userId);
-
+        $userCopies = $copyRepository->getUserCopies($userId);
 
 
         return $this->render('user/collection.html.twig', [
-            'controller_name' => 'MangaController',
-            'userMangas' => $userMangas
+            'userCopies' => $userCopies,
         ]);
     }
 

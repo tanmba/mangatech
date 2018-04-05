@@ -23,9 +23,9 @@ class Mangas
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="mangas", cascade={"persist"} )
+     * @ORM\OneToMany(targetEntity="Copy", mappedBy="manga", cascade={"persist"} )
      */
-    private $user;
+    private $copies;
 
     /**
      * @ORM\Column(type="string")
@@ -225,26 +225,35 @@ class Mangas
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getCopies()
     {
-        return $this->user;
+        return $this->copies;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $copies
      */
-    public function setUser($user): void
+    public function setCopies($copies): void
     {
-        $this->user = $user;
+        $this->copies = $copies;
     }
 
-    public function addUser(User $user)
+    public function addCopy(Copy $copy)
     {
-        $this->user[] = $user;
+        $this->copies->add($copy);
     }
 
     public function __construct() {
-        $this->user = new ArrayCollection();
+        $this->copies = new ArrayCollection();
+    }
+
+    public function canBorrow()
+    {
+        $availableCopies = array_filter($this->copies->toArray(), function (Copy $copy) {
+            return !$copy->getBorrowedBy();
+        });
+
+        return \count($availableCopies) >= 1;
     }
 
 }
