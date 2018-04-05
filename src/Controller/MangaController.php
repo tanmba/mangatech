@@ -65,7 +65,7 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function addMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, CopyRepository $copyRepository) {
+   public function addMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, CopyRepository $copyRepository) {
 
        $entityManager = $this->getDoctrine()->getManager();
        $user = $this->getUser();
@@ -106,6 +106,26 @@ class MangaController extends Controller
    }
 
     /**
+     * @Route("/removeManga/{id}", name="removeManga")
+     * @param Request $request
+     * @param Mangas $mangas
+     * @param ObjectManager $manager
+     * @return int|string
+     */
+/*   public function BorrowMangas(Request $request, $userId, $id, CopyRepository $copyRepository) {
+
+       $entityManager = $this->getDoctrine()->getManager();
+       $copy = $copyRepository->getByUserAndManga($userId, $id);
+       $entityManager->remove($copy);
+       $entityManager->flush();
+
+       $userCopies = $copyRepository->getUserCopies($userId);
+       return $this->render('user/collection.html.twig', [
+           'userCopies' => $userCopies
+       ]);
+   }*/
+
+    /**
      * @Route("/addmanga", name="addmanga")
      */
     public function newMangas(Request $request)
@@ -114,22 +134,6 @@ class MangaController extends Controller
         $form = $this->createForm(CollectionType::class, $collection);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
-            /** @var UploadedFile $file */
-            $file = $collection->getCover();
-
-            $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-
-            // moves the file to the directory where cover are stored
-            $file->move(
-                $this->getParameter('cover_directory'),
-                $fileName
-            );
-
-            // updates the 'cover' property to store the PDF file name
-            // instead of its contents
-            $collection->setCover($fileName);
-
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
@@ -181,5 +185,7 @@ class MangaController extends Controller
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+
 
 }
