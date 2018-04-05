@@ -116,6 +116,28 @@ class MangaController extends Controller
            'userCopies' => $userCopies
        ]);
    }
+
+    /**
+     * @Route("/borrow/{id_manga}/{id_user}", name="borrow")
+     * @param ObjectManager $manager
+     * @return int|string
+     */
+   public function Borrow(Request $request, $id_user, $id_manga, ObjectManager $manager, CopyRepository $copyRepository) {
+
+
+       $entityManager = $this->getDoctrine()->getManager();
+       $userCopies = $copyRepository->getUserCopies($id_manga);
+       $copy = $copyRepository->getByUserAndManga($id_user, $id_manga);
+
+       $copy->setBorrowedBy($userCopies);
+       $entityManager->persist($copy);
+       $entityManager->flush();
+
+       return $this->render('user/collection.html.twig', [
+           'userCopies' => $userCopies
+       ]);
+   }
+
     /**
      * @Route("/removeManga/{id}", name="removeManga")
      * @param Request $request
