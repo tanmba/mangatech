@@ -2,12 +2,13 @@
 
 {% block body %}
     <div class="manga-list">
-        <h2>Liste de mangas</h2>
+        <h2>Liste des utilisateurs</h2>
         <div class="mangas">
             {% for copy in mangaCopies %}
                 <a class="manga" href="/mangasCollection/{{ copy.user.id }}">
                     <div>
                         <h4>{{ copy.user.username }}</h4>
+                        <h4>{{ copy.user.email }}</h4>
                     </div>
                 </a>
             {% endfor %}
