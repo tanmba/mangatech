@@ -31,4 +31,18 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+
+    // TODO fonction ajout d'un manga
+    public function addManga(User $user, $manga)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->getId())
+
+            // Compare $id avec
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

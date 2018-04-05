@@ -12,7 +12,7 @@
                 <h2>Auteur : {{ mangas.author }}</h2>
                 <h3>Genre : {{ mangas.genre }}</h3>
                 <p>Synopsis :{{ mangas.synopsis }}</p>
-                <a href="{{ path('collection', {'id': mangas.id }) }}">ajouter collection</a>
+                <a href="/favmanga/{{ mangas.id }}">ajouter collection</a>
             </div>
         </div>
     </div>

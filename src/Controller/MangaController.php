@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\CollectionType;
 use App\Repository\MangasRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,14 +41,6 @@ class MangaController extends Controller
             'mangas' => $mangas,
         ]);
     }
-    /*public function addFavTeamAction(Request $request, Mangas $mangas, ObjectManager $manager)
-    {
-
-        $user = $this->getUser();
-        $user->addFavMangas($mangas);
-        $manager->persist($user);
-        $manager->flush();
-    }*/
 
     /**
      * @Route("/favmanga/{id}", name="add_fav_manga")
@@ -56,20 +49,23 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function addFavMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user) {
+   public function addFavMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, MangasRepository $mangasRepository, UserRepository $userRepository) {
 
        $entityManager = $this->getDoctrine()->getManager();
-       $mangas = $entityManager->getRepository(Mangas::class)->find($id);
-       $user->addFavMangas('');
-       $entityManager->persist($user);
-       $entityManager->flush();
+       $user = $this->getUser();
+       $userId = $user->getId();
+           /** @var Mangas $mangas */
+           $mangas = $entityManager->getRepository(Mangas::class)->find($id);
+           $user->addFavMangas($mangas);
+           $entityManager->persist($user);
+           $entityManager->flush();
 
-
-        return $this->render('mangas/mangas.html.twig', [
-            'controller_name' => 'MangaController',
-            'mangas' => $mangas,
-        ]);
-    }
+       $userMangas = $mangasRepository->getUserMangas($userId);
+       return $this->render('user/collection.html.twig', [
+           'controller_name' => 'MangaController',
+           'userMangas' => $userMangas
+       ]);
+   }
 
     /**
      * @Route("/addmanga", name="home")
@@ -121,4 +117,26 @@ class MangaController extends Controller
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+
+    /**
+     * @Route("add-collection", )
+     */
+    public function addToCollection(Request $request)
+    {
+        // Récupère l'user avec une requete doctrine sur $this->getUser()->getId()
+
+        $user = $this->getUser()->getId();
+
+
+
+        $mangas = $this->get($id);
+
+        // Récupère le manga avec son id
+
+
+
+
+    }
+
 }
