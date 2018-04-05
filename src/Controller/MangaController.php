@@ -49,14 +49,14 @@ class MangaController extends Controller
      * @param ObjectManager $manager
      * @return int|string
      */
-   public function addFavMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, MangasRepository $mangasRepository, UserRepository $userRepository) {
+   public function addMangasAction(Request $request, Mangas $mangas, ObjectManager $manager, $id, User $user, MangasRepository $mangasRepository, UserRepository $userRepository) {
 
        $entityManager = $this->getDoctrine()->getManager();
        $user = $this->getUser();
        $userId = $user->getId();
            /** @var Mangas $mangas */
            $mangas = $entityManager->getRepository(Mangas::class)->find($id);
-           $user->addFavMangas($mangas);
+           $user->addMangas($mangas);
            $entityManager->persist($user);
            $entityManager->flush();
 
