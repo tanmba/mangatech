@@ -12,11 +12,17 @@
                 <h2>Auteur : {{ mangas.author }}</h2>
                 <h3>Genre : {{ mangas.genre }}</h3>
                 <p>Synopsis :{{ mangas.synopsis }}</p>
-                <a href="/addCollection/{{ mangas.id }}">ajouter collection</a>
             </div>
         </div>
         {% if mangas.availability >= 1 %}
-            <button>Emprunter</button>
+            <a class="button">Emprunter</a>
+        {% endif %}
+
+        {% set break = false %}
+        {% if mangas in userMangas %}
+            <a class="button" href="/removeManga/{{ mangas.id }}">supprimer collection</a>
+        {% else %}
+            <a class="button" href="/favmanga/{{ mangas.id }}">ajouter collection</a>
         {% endif %}
     </div>
 {% endblock %}
