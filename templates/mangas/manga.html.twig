@@ -15,5 +15,8 @@
                 <a href="/favmanga/{{ mangas.id }}">ajouter collection</a>
             </div>
         </div>
+        {% if mangas.availability >= 1 %}
+            <button>Emprunter</button>
+        {% endif %}
     </div>
 {% endblock %}
