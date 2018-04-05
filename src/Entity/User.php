@@ -30,6 +30,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->copies = new ArrayCollection();
+        $this->isActive = true;
     }
 
     public function addMangas(Mangas $mangas)
@@ -91,7 +92,6 @@ class User implements UserInterface
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
-
 
 
     /**
