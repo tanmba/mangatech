@@ -47,6 +47,39 @@ class MangaController extends Controller
     }
 
     /**
+     * @Route("/removetest", name="removetest")
+     */
+    public function removetest(\Swift_Mailer $mailer)
+    {
+//        $data = (object) $user->getEmail();
+
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('projetmangatech@gmail.com')
+            ->setTo('tanmba@icloud.com')
+            ->setBody( $this->renderView(
+            // templates/emails/registration.html.twig
+                'emails/availability.html.twig'
+            ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+
+        $mailer->send($message);
+
+        return $this->redirectToRoute('mangalist');
+    }
+
+    /**
      * @Route("/addCollection/{id}", name="addCollection")
      * @param Request $request
      * @param Mangas $mangas
